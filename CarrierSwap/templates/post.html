@@ -1,14 +1,28 @@
 {% extends "base.html" %}
 
-{% block title %}Post Swap{% endblock %}
+{% block title %}Post a Swap - CarrierSwap{% endblock %}
 
 {% block content %}
-<div style="max-width: 600px; margin: 40px auto; padding: 30px;">
-    <h2>Post a New Swap Request</h2>
-    <form method="POST">
-        <input type="text" name="current_station" placeholder="Current Station" style="width:100%; padding:10px; margin:10px 0;" required><br>
-        <input type="text" name="desired" placeholder="Desired Locations (comma separated)" style="width:100%; padding:10px; margin:10px 0;" required><br>
-        <button type="submit" style="padding:12px 30px; background:#003087; color:white;">Publish</button>
+<div class="max-w-2xl mx-auto px-6 py-12">
+    <h1 class="text-4xl font-bold mb-8">Post a New Swap Request</h1>
+    
+    <form method="POST" class="space-y-6">
+        <div>
+            <label class="block font-medium mb-2">Current Station</label>
+            <input type="text" name="current_station" placeholder="North Las Vegas Station, NV" class="w-full border border-slate-300 rounded-xl px-4 py-3" required>
+        </div>
+        <div>
+            <label class="block font-medium mb-2">Desired Locations (comma separated)</label>
+            <input type="text" name="desired" placeholder="Phoenix, AZ; Tucson, AZ" class="w-full border border-slate-300 rounded-xl px-4 py-3" required>
+        </div>
+        <div>
+            <label class="block font-medium mb-2">Craft</label>
+            <select name="craft" class="w-full border border-slate-300 rounded-xl px-4 py-3">
+                <option>City Letter Carrier (NALC)</option>
+                <option>Rural Carrier (NRLCA)</option>
+            </select>
+        </div>
+        <button type="submit" class="bg-blue-600 text-white px-10 py-4 rounded-full font-semibold w-full">Publish Swap Request</button>
     </form>
 </div>
 {% endblock %}
