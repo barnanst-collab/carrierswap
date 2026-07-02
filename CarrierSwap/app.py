@@ -67,7 +67,16 @@ def listing_detail(listing_id):
 def express_interest(listing_id):
     flash('Interest expressed!')
     return redirect(url_for('listing_detail', listing_id=listing_id))
-
+@app.route('/express-interest/<int:listing_id>', methods=['POST'])
+def express_interest(listing_id):
+    if 'user_id' not in session:
+        return redirect(url_for('index'))
+    conn = get_db()
+    conn.execute('INSERT OR IGNORE INTO interests (listing_id, interested_user_id) VALUES (?, ?)', (listing_id, session['user_id']))
+    conn.commit()
+    conn.close()
+    flash('Interest expressed!')
+    return redirect(url_for('listing_detail', listing_id=listing_id))
 if __name__ == '__main__':
     init_db()
     app.run(debug=True, host='0.0.0.0', port=5000)
