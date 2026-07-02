@@ -45,4 +45,4 @@ def post_listing():
 if __name__ == '__main__':
     init_db()
     print("CarrierSwap is running!")
-    app.run(debug=True, port=5000)
+    app.run(debug=False, host='0.0.0.0', port=5000)
