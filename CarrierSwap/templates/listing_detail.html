@@ -1,13 +1,15 @@
 {% extends "base.html" %}
 
-{% block title %}Listing{% endblock %}
+{% block title %}Listing Detail{% endblock %}
 
 {% block content %}
 <div class="max-w-2xl mx-auto px-6 py-12">
-    <h1 class="text-3xl font-bold">{{ listing.current_station }}</h1>
-    <p>Wants: {{ listing.desired }}</p>
-    <form action="{{ url_for('express_interest', listing_id=listing.id) }}" method="POST">
-        <button type="submit" class="bg-blue-600 text-white px-8 py-3 rounded-full mt-6">Express Interest</button>
+    <h1 class="text-3xl font-bold mb-4">{{ listing.current_station }}</h1>
+    <p class="text-blue-600">Wants: {{ listing.desired }}</p>
+    <p class="mt-4">{{ listing.notes or 'No additional notes.' }}</p>
+    
+    <form action="{{ url_for('express_interest', listing_id=listing.id) }}" method="POST" class="mt-8">
+        <button type="submit" class="bg-blue-600 text-white px-10 py-4 rounded-full font-semibold">Express Interest</button>
     </form>
 </div>
 {% endblock %}
