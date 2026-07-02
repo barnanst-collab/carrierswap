@@ -3,14 +3,25 @@
 {% block title %}CarrierSwap - Free Mutual Transfers{% endblock %}
 
 {% block content %}
-<div class="bg-blue-900 text-white py-20 text-center">
-    <h1 class="text-5xl font-bold mb-4">Find Your Mutual Transfer</h1>
-    <p class="text-2xl mb-8">100% Free. Built by Carriers for Carriers.</p>
-    <a href="/demo-login" class="inline-block bg-white text-blue-900 px-10 py-4 rounded-full font-semibold text-xl">Try Demo Login</a>
+<div class="bg-blue-900 text-white py-24 text-center">
+    <h1 class="text-6xl font-bold mb-6">Find Your Swap</h1>
+    <p class="text-2xl max-w-md mx-auto">Free platform for USPS carriers to find mutual transfers and multi-way chains.</p>
+    <div class="mt-10">
+        <a href="/demo-login" class="inline-block bg-white text-blue-900 px-10 py-4 rounded-full font-semibold text-xl">Demo Login</a>
+    </div>
 </div>
 
-<div class="max-w-6xl mx-auto px-6 py-12">
-    <h2 class="text-3xl font-bold text-center mb-8">Active Swaps</h2>
-    <!-- Listings will show here -->
+<div class="max-w-6xl mx-auto px-6 py-16">
+    <h2 class="text-3xl font-bold text-center mb-10">Active Listings</h2>
+    <div class="grid md:grid-cols-3 gap-6">
+        {% for listing in listings %}
+        <div class="bg-white border rounded-2xl p-6">
+            <h3 class="font-semibold">{{ listing.current_city }}</h3>
+            <p class="text-sm text-blue-600">Wants: {{ listing.desired }}</p>
+            <a href="{{ url_for('listing_detail', listing_id=listing.id) }}" class="mt-4 block text-center text-blue-600">View</a>
+        </div>
+        {% endfor %}
+    </div>
 </div>
+{% endblock %}
 {% endblock %}
