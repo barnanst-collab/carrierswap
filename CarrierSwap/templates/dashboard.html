@@ -1,25 +1,25 @@
 {% extends "base.html" %}
 
-{% block title %}Dashboard - CarrierSwap{% endblock %}
+{% block title %}Dashboard{% endblock %}
 
 {% block content %}
 <div class="max-w-6xl mx-auto px-6 py-12">
     <h1 class="text-4xl font-bold mb-8">Your Dashboard</h1>
     
-    <div class="grid md:grid-cols-2 gap-8">
-        <div class="bg-white p-6 rounded-xl shadow">
-            <h2 class="font-semibold text-xl mb-4">My Swap Requests</h2>
-            <p class="text-slate-600">No requests yet. <a href="/post" class="text-blue-600">Post one now</a>.</p>
+    <div class="mb-12">
+        <h2 class="text-2xl font-semibold mb-4">My Posted Swaps</h2>
+        {% if my_listings %}
+        <div class="grid md:grid-cols-2 gap-6">
+            {% for listing in my_listings %}
+            <div class="bg-white border rounded-2xl p-6">
+                <h3>{{ listing.current_station }}</h3>
+                <p class="text-blue-600">Wants: {{ listing.desired }}</p>
+            </div>
+            {% endfor %}
         </div>
-        
-        <div class="bg-white p-6 rounded-xl shadow">
-            <h2 class="font-semibold text-xl mb-4">Recent Activity</h2>
-            <p class="text-slate-600">Interests and messages will appear here.</p>
-        </div>
-    </div>
-    
-    <div class="mt-12 text-center">
-        <a href="/post" class="bg-blue-600 text-white px-8 py-4 rounded-full font-semibold">Post a New Swap Request</a>
+        {% else %}
+        <p>No swaps posted yet. <a href="/post" class="text-blue-600">Post one</a>.</p>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
