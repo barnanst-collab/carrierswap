@@ -67,6 +67,7 @@ def listing_detail(listing_id):
 def express_interest(listing_id):
     flash('Interest expressed!')
     return redirect(url_for('listing_detail', listing_id=listing_id))
+    
 @app.route('/express-interest/<int:listing_id>', methods=['POST'])
 def express_interest(listing_id):
     if 'user_id' not in session:
