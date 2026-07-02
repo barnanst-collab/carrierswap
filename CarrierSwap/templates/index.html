@@ -3,10 +3,27 @@
 {% block title %}CarrierSwap - Free Mutual Transfers{% endblock %}
 
 {% block content %}
-<div style="padding: 40px 20px; text-align: center; max-width: 800px; margin: 0 auto;">
-    <h1 style="font-size: 3rem; color: #003087;">CarrierSwap</h1>
-    <p style="font-size: 1.5rem;">Find mutual transfers for free</p>
-    <a href="/demo-login" style="display:inline-block; padding:15px 30px; background:#003087; color:white; text-decoration:none; border-radius:8px; margin:20px 0;">Demo Login (North Las Vegas)</a>
-    <p><a href="/post">Post a Swap</a></p>
+<div class="hero py-20 text-center">
+    <h1 class="text-5xl font-bold mb-4">Find Your Mutual Transfer</h1>
+    <p class="text-xl mb-8">100% Free. No Paywalls. Built by Carriers.</p>
+    <a href="/demo-login" class="inline-block bg-white text-blue-800 px-8 py-4 rounded-full font-semibold text-lg">Try Demo Login</a>
+</div>
+
+<div class="max-w-4xl mx-auto px-6 py-12">
+    <h2 class="text-3xl font-bold text-center mb-8">How It Works</h2>
+    <div class="grid md:grid-cols-3 gap-6">
+        <div class="text-center">
+            <div class="text-4xl mb-4">📍</div>
+            <h3>Post Your Station</h3>
+        </div>
+        <div class="text-center">
+            <div class="text-4xl mb-4">🔄</div>
+            <h3>Find Matches</h3>
+        </div>
+        <div class="text-center">
+            <div class="text-4xl mb-4">💬</div>
+            <h3>Chat & Swap</h3>
+        </div>
+    </div>
 </div>
 {% endblock %}
