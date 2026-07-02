@@ -65,11 +65,6 @@ def listing_detail(listing_id):
 
 @app.route('/express-interest/<int:listing_id>', methods=['POST'])
 def express_interest(listing_id):
-    flash('Interest expressed!')
-    return redirect(url_for('listing_detail', listing_id=listing_id))
-    
-@app.route('/express-interest/<int:listing_id>', methods=['POST'])
-def express_interest(listing_id):
     if 'user_id' not in session:
         return redirect(url_for('index'))
     conn = get_db()
@@ -79,10 +74,6 @@ def express_interest(listing_id):
     flash('Interest expressed!')
     return redirect(url_for('listing_detail', listing_id=listing_id))
 
-@app.route('/chat/<int:listing_id>')
-def chat(listing_id):
-    return render_template('chat.html', listing_id=listing_id)
-    
 if __name__ == '__main__':
     init_db()
     app.run(debug=True, host='0.0.0.0', port=5000)
