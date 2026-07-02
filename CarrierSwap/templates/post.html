@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Post Swap{% endblock %}
+
+{% block content %}
+<div style="max-width: 600px; margin: 40px auto; padding: 30px;">
+    <h2>Post a New Swap Request</h2>
+    <form method="POST">
+        <input type="text" name="current_station" placeholder="Current Station" style="width:100%; padding:10px; margin:10px 0;" required><br>
+        <input type="text" name="desired" placeholder="Desired Locations (comma separated)" style="width:100%; padding:10px; margin:10px 0;" required><br>
+        <button type="submit" style="padding:12px 30px; background:#003087; color:white;">Publish</button>
+    </form>
+</div>
+{% endblock %}
