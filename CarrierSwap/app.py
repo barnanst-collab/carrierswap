@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 import sqlite3
-from datetime import datetime
 
 app = Flask(__name__)
 app.secret_key = 'carrierswap-secret'
@@ -77,7 +76,7 @@ def express_interest(listing_id):
     conn.execute('INSERT OR IGNORE INTO interests (listing_id, interested_user_id) VALUES (?, ?)', (listing_id, session['user_id']))
     conn.commit()
     conn.close()
-    flash('Interest expressed! Opening chat...')
+    flash('Interest expressed!')
     return redirect(url_for('chat', listing_id=listing_id))
 
 @app.route('/chat/<int:listing_id>', methods=['GET', 'POST'])
@@ -92,6 +91,19 @@ def chat(listing_id):
     messages = conn.execute('SELECT * FROM messages WHERE listing_id = ? ORDER BY created_at', (listing_id,)).fetchall()
     conn.close()
     return render_template('chat.html', listing_id=listing_id, messages=messages)
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        email = request.form['email']
+        display_name = request.form['display_name']
+        conn = get_db()
+        conn.execute('INSERT OR IGNORE INTO users (email, display_name) VALUES (?, ?)', (email, display_name))
+        conn.commit()
+        conn.close()
+        flash('Account created!')
+        return redirect(url_for('index'))
+    return render_template('register.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -119,25 +131,6 @@ def logout():
     session.clear()
     flash('Logged out.')
     return redirect(url_for('index'))
-
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    if request.method == 'POST':
-        email = request.form['email']
-        display_name = request.form['display_name']
-        conn = get_db()
-        conn.execute('INSERT OR IGNORE INTO users (email, display_name) VALUES (?, ?)', (email, display_name))
-        conn.commit()
-        conn.close()
-        flash('Account created! Use Demo Login for now.')
-        return redirect(url_for('index'))
-    return render_template('register.html')
-
-@app.route('/profile')
-def profile():
-    if 'user_id' not in session:
-        return redirect(url_for('index'))
-    return render_template('profile.html')
 
 if __name__ == '__main__':
     init_db()
