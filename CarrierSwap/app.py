@@ -16,6 +16,7 @@ def init_db():
     c = conn.cursor()
     c.execute('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, email TEXT UNIQUE, display_name TEXT)')
     c.execute('CREATE TABLE IF NOT EXISTS listings (id INTEGER PRIMARY KEY, user_id INTEGER, current_station TEXT, current_city TEXT, desired TEXT, craft TEXT, experience INTEGER, notes TEXT)')
+    c.execute('CREATE TABLE IF NOT EXISTS interests (id INTEGER PRIMARY KEY, listing_id INTEGER, interested_user_id INTEGER)')
     conn.commit()
     conn.close()
 
