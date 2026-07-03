@@ -66,6 +66,9 @@ def listing_detail(listing_id):
     conn = get_db()
     listing = conn.execute('SELECT * FROM listings WHERE id = ?', (listing_id,)).fetchone()
     conn.close()
+    if not listing:
+        flash('Listing not found.')
+        return redirect(url_for('index'))
     return render_template('listing_detail.html', listing=listing)
 
 @app.route('/express-interest/<int:listing_id>', methods=['POST'])
