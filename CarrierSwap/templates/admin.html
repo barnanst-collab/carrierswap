@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Admin{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto px-6 py-12">
+    <h1 class="text-4xl font-bold mb-8">All Listings (Admin)</h1>
+    {% for listing in listings %}
+    <div class="bg-white p-6 rounded-xl mb-4">
+        {{ listing.display_name }} - {{ listing.current_station }} → {{ listing.desired }}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
