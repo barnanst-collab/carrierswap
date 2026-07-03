@@ -79,8 +79,8 @@ def express_interest(listing_id):
     conn.execute('INSERT OR IGNORE INTO interests (listing_id, interested_user_id) VALUES (?, ?)', (listing_id, session['user_id']))
     conn.commit()
     conn.close()
-    flash('Interest expressed!')
-    return redirect(url_for('listing_detail', listing_id=listing_id))
+    flash('Interest expressed! Opening chat...')
+    return redirect(url_for('chat', listing_id=listing_id))
 
 @app.route('/chat/<int:listing_id>')
 def chat(listing_id):
