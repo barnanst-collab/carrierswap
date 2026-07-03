@@ -15,14 +15,14 @@
     </form>
     
     <h2 class="text-3xl font-bold mb-8">Active Swaps</h2>
-    <div class="grid md:grid-cols-3 gap-6">
-        {% for listing in listings %}
-        <div class="bg-white border rounded-2xl p-6">
-            <h3 class="font-semibold">{{ listing.current_city or listing.current_station }}</h3>
-            <p>Wants: {{ listing.desired }}</p>
-            <a href="{{ url_for('listing_detail', listing_id=listing.id) }}" class="text-blue-600">View Details</a>
-        </div>
-        {% endfor %}
+ <div class="grid md:grid-cols-3 gap-6">
+    {% for listing in listings %}
+    <div class="bg-white border rounded-2xl p-6">
+        <h3 class="font-semibold">{{ listing.current_city or listing.current_station }}</h3>
+        <p class="text-blue-600">Craft: {{ listing.craft }}</p>
+        <p>Wants: {{ listing.desired }}</p>
+        <a href="{{ url_for('listing_detail', listing_id=listing.id) }}" class="mt-4 block text-center text-blue-600">View Details</a>
     </div>
+    {% endfor %}
 </div>
 {% endblock %}
