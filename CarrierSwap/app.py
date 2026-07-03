@@ -21,10 +21,14 @@ def init_db():
 
 @app.route('/')
 def index():
+    search = request.args.get('search', '')
     conn = get_db()
-    listings = conn.execute('SELECT * FROM listings ORDER BY id DESC').fetchall()
+    if search:
+        listings = conn.execute('SELECT * FROM listings WHERE current_city LIKE ? OR desired LIKE ?', (f'%{search}%', f'%{search}%')).fetchall()
+    else:
+        listings = conn.execute('SELECT * FROM listings ORDER BY id DESC').fetchall()
     conn.close()
-    return render_template('index.html', listings=listings)
+    return render_template('index.html', listings=listings, search=search)
 
 @app.route('/demo-login')
 def demo_login():
@@ -74,11 +78,7 @@ def express_interest(listing_id):
     flash('Interest expressed!')
     return redirect(url_for('listing_detail', listing_id=listing_id))
 
-@app.route('/chat/<int:listing_id>')
-def chat(listing_id):
-    return render_template('chat.html', listing_id=listing_id)
-
-# ... (keep all routes)
 if __name__ == '__main__':
     init_db()
-    app.run(debug=False, host='0.0.0.0', port=5000)
+    app.run(debug=True, host='0.0.0.0', port=5000)
+    
