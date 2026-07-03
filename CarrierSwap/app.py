@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 import sqlite3
+from datetime import datetime
 
 app = Flask(__name__)
 app.secret_key = 'carrierswap-secret'
@@ -17,19 +18,16 @@ def init_db():
     c.execute('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, email TEXT UNIQUE, display_name TEXT)')
     c.execute('CREATE TABLE IF NOT EXISTS listings (id INTEGER PRIMARY KEY, user_id INTEGER, current_station TEXT, current_city TEXT, desired TEXT, craft TEXT, experience INTEGER, notes TEXT)')
     c.execute('CREATE TABLE IF NOT EXISTS interests (id INTEGER PRIMARY KEY, listing_id INTEGER, interested_user_id INTEGER)')
+    c.execute('CREATE TABLE IF NOT EXISTS messages (id INTEGER PRIMARY KEY, listing_id INTEGER, from_user_id INTEGER, to_user_id INTEGER, content TEXT, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)')
     conn.commit()
     conn.close()
 
 @app.route('/')
 def index():
-    search = request.args.get('search', '')
     conn = get_db()
-    if search:
-        listings = conn.execute('SELECT * FROM listings WHERE current_city LIKE ? OR desired LIKE ?', (f'%{search}%', f'%{search}%')).fetchall()
-    else:
-        listings = conn.execute('SELECT * FROM listings ORDER BY id DESC').fetchall()
+    listings = conn.execute('SELECT * FROM listings ORDER BY id DESC').fetchall()
     conn.close()
-    return render_template('index.html', listings=listings, search=search)
+    return render_template('index.html', listings=listings)
 
 @app.route('/demo-login')
 def demo_login():
@@ -82,18 +80,19 @@ def express_interest(listing_id):
     flash('Interest expressed! Opening chat...')
     return redirect(url_for('chat', listing_id=listing_id))
 
-@app.route('/chat/<int:listing_id>')
+@app.route('/chat/<int:listing_id>', methods=['GET', 'POST'])
 def chat(listing_id):
-    return render_template('chat.html', listing_id=listing_id)
-
-@app.route('/admin')
-def admin():
+    if 'user_id' not in session:
+        return redirect(url_for('index'))
     conn = get_db()
-    all_listings = conn.execute('SELECT l.*, u.display_name FROM listings l JOIN users u ON l.user_id = u.id').fetchall()
+    if request.method == 'POST':
+        content = request.form['content']
+        conn.execute('INSERT INTO messages (listing_id, from_user_id, to_user_id, content) VALUES (?, ?, ?, ?)', (listing_id, session['user_id'], 2, content))
+        conn.commit()
+    messages = conn.execute('SELECT * FROM messages WHERE listing_id = ? ORDER BY created_at', (listing_id,)).fetchall()
     conn.close()
-    return render_template('admin.html', listings=all_listings)
+    return render_template('chat.html', listing_id=listing_id, messages=messages)
 
 if __name__ == '__main__':
     init_db()
     app.run(debug=True, host='0.0.0.0', port=5000)
-    
