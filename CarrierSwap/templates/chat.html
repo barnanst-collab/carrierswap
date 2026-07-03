@@ -4,11 +4,11 @@
 
 {% block content %}
 <div class="max-w-2xl mx-auto px-6 py-12">
-    <h1 class="text-3xl font-bold mb-6">Chat for Swap</h1>
-    <div class="bg-white border rounded-2xl p-8 h-96 flex items-center justify-center text-slate-500 mb-6">
-        Chat messages would appear here.
+    <h1 class="text-3xl font-bold mb-6">Chat for Swap #{{ listing_id }}</h1>
+    <div class="bg-white border border-slate-200 rounded-xl p-8 h-96 flex items-center justify-center text-slate-500">
+        Real-time chat would go here (messages between matched carriers).
     </div>
-    <div class="flex">
+    <div class="mt-6 flex gap-3">
         <input type="text" placeholder="Type a message..." class="flex-1 border border-slate-300 rounded-l-2xl px-4 py-3">
         <button class="bg-blue-600 text-white px-8 rounded-r-2xl">Send</button>
     </div>
