@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<div class="max-w-md mx-auto px-6 py-12">
+    <h1 class="text-3xl font-bold mb-8">Your Profile</h1>
+    <p>Display Name: {{ session.display_name }}</p>
+    <a href="/logout" class="text-red-600">Logout</a>
+</div>
+{% endblock %}
