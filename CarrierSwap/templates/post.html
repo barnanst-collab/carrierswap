@@ -1,18 +1,17 @@
 {% extends "base.html" %}
 
-{% block title %}Post a Swap - CarrierSwap{% endblock %}
+{% block title %}Post Swap{% endblock %}
 
 {% block content %}
 <div class="max-w-2xl mx-auto px-6 py-12">
     <h1 class="text-4xl font-bold mb-8">Post a New Swap Request</h1>
-    
     <form method="POST" class="space-y-6">
         <div>
             <label class="block font-medium mb-2">Current Station</label>
             <input type="text" name="current_station" placeholder="North Las Vegas Station, NV" class="w-full border border-slate-300 rounded-xl px-4 py-3" required>
         </div>
         <div>
-            <label class="block font-medium mb-2">Desired Locations (comma separated)</label>
+            <label class="block font-medium mb-2">Desired Locations</label>
             <input type="text" name="desired" placeholder="Phoenix, AZ; Tucson, AZ" class="w-full border border-slate-300 rounded-xl px-4 py-3" required>
         </div>
         <div>
@@ -22,7 +21,11 @@
                 <option>Rural Carrier (NRLCA)</option>
             </select>
         </div>
-        <button type="submit" class="bg-blue-600 text-white px-10 py-4 rounded-full font-semibold w-full">Publish Swap Request</button>
+        <div>
+            <label class="block font-medium mb-2">Extra Notes (optional)</label>
+            <textarea name="notes" rows="4" class="w-full border border-slate-300 rounded-xl px-4 py-3" placeholder="Family reasons, availability, etc."></textarea>
+        </div>
+        <button type="submit" class="bg-blue-600 text-white px-10 py-4 rounded-full w-full font-semibold">Publish Swap Request</button>
     </form>
 </div>
 {% endblock %}
