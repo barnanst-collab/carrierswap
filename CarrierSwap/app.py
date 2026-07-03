@@ -108,6 +108,18 @@ def login():
         flash('User not found.')
     return render_template('login.html')
 
+@app.route('/profile')
+def profile():
+    if 'user_id' not in session:
+        return redirect(url_for('index'))
+    return render_template('profile.html')
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    flash('Logged out.')
+    return redirect(url_for('index'))
+
 if __name__ == '__main__':
     init_db()
     app.run(debug=True, host='0.0.0.0', port=5000)
