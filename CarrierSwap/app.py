@@ -120,6 +120,25 @@ def logout():
     flash('Logged out.')
     return redirect(url_for('index'))
 
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        email = request.form['email']
+        display_name = request.form['display_name']
+        conn = get_db()
+        conn.execute('INSERT OR IGNORE INTO users (email, display_name) VALUES (?, ?)', (email, display_name))
+        conn.commit()
+        conn.close()
+        flash('Account created! Use Demo Login for now.')
+        return redirect(url_for('index'))
+    return render_template('register.html')
+
+@app.route('/profile')
+def profile():
+    if 'user_id' not in session:
+        return redirect(url_for('index'))
+    return render_template('profile.html')
+
 if __name__ == '__main__':
     init_db()
     app.run(debug=True, host='0.0.0.0', port=5000)
