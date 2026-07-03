@@ -6,20 +6,24 @@
 <div class="max-w-6xl mx-auto px-6 py-12">
     <h1 class="text-4xl font-bold mb-8">Your Dashboard</h1>
     
-    <div class="mb-12">
-        <h2 class="text-2xl font-semibold mb-4">My Posted Swaps</h2>
-        {% if my_listings %}
-        <div class="grid md:grid-cols-2 gap-6">
+    <div class="grid md:grid-cols-2 gap-8">
+        <div>
+            <h2 class="text-2xl font-semibold mb-4">My Swaps</h2>
+            {% if my_listings %}
             {% for listing in my_listings %}
-            <div class="bg-white border rounded-2xl p-6">
-                <h3>{{ listing.current_station }}</h3>
-                <p class="text-blue-600">Wants: {{ listing.desired }}</p>
+            <div class="bg-white p-4 rounded-xl mb-4">
+                {{ listing.current_station }} → {{ listing.desired }}
             </div>
             {% endfor %}
+            {% else %}
+            <p>No swaps yet.</p>
+            {% endif %}
         </div>
-        {% else %}
-        <p>No swaps posted yet. <a href="/post" class="text-blue-600">Post one</a>.</p>
-        {% endif %}
+        
+        <div>
+            <h2 class="text-2xl font-semibold mb-4">Interests</h2>
+            <p>People interested in your swaps will appear here.</p>
+        </div>
     </div>
 </div>
 {% endblock %}
