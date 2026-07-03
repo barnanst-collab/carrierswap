@@ -93,18 +93,20 @@ def chat(listing_id):
     conn.close()
     return render_template('chat.html', listing_id=listing_id, messages=messages)
 
-@app.route('/register', methods=['GET', 'POST'])
-def register():
+@app.route('/login', methods=['GET', 'POST'])
+def login():
     if request.method == 'POST':
         email = request.form['email']
-        display_name = request.form['display_name']
         conn = get_db()
-        conn.execute('INSERT OR IGNORE INTO users (email, display_name) VALUES (?, ?)', (email, display_name))
-        conn.commit()
+        user = conn.execute('SELECT * FROM users WHERE email = ?', (email,)).fetchone()
         conn.close()
-        flash('Account created! Login with demo for now.')
-        return redirect(url_for('index'))
-    return render_template('register.html')
+        if user:
+            session['user_id'] = user['id']
+            session['display_name'] = user['display_name']
+            flash('Logged in!')
+            return redirect(url_for('dashboard'))
+        flash('User not found.')
+    return render_template('login.html')
 
 if __name__ == '__main__':
     init_db()
