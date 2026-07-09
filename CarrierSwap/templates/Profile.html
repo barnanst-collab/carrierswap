@@ -3,28 +3,9 @@
 {% block title %}Profile{% endblock %}
 
 {% block content %}
-<div class="max-w-4xl mx-auto px-6 py-12">
-    <h1 class="text-4xl font-bold mb-8">Your Profile</h1>
-    <p class="mb-8"><strong>Display Name:</strong> {{ session.get('display_name', 'Demo Carrier') }}</p>
-    
-    <h2 class="text-2xl font-semibold mb-4">Your Swaps</h2>
-    <div class="bg-white rounded-2xl p-6 mb-8">
-        {% if my_listings %}
-        {% for listing in my_listings %}
-        <div class="border-b py-4">
-            {{ listing.current_station }} → {{ listing.desired }}
-        </div>
-        {% endfor %}
-        {% else %}
-        <p>No swaps yet. <a href="/post" class="text-blue-600">Post one</a>.</p>
-        {% endif %}
-    </div>
-    
-    <h2 class="text-2xl font-semibold mb-4">Messages</h2>
-    <div class="bg-white rounded-2xl p-6">
-        <p>Recent messages will appear here.</p>
-    </div>
-    
+<div class="max-w-md mx-auto px-6 py-12">
+    <h1 class="text-3xl font-bold mb-8">Your Profile</h1>
+    <p><strong>Display Name:</strong> {{ session.get('display_name', 'Demo Carrier') }}</p>
     <a href="/logout" class="text-red-600 hover:underline block mt-8">Logout</a>
 </div>
 {% endblock %}
